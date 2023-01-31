@@ -55,8 +55,10 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
       );
 			if (depth < 100) {
 				setClut(pol4, model->texture->cx, model->texture->cy);
-			} else {
+			} else if (((depth-100)>>5) < 8) {
 				setClut(pol4, model->texture->cx, model->texture->cy+((depth-100)>>5));
+			} else {
+				setClut(pol4, model->texture->cx, model->texture->cy+8);
 			}
 
 			gte_ldrgb(&pol4->r0);
@@ -153,11 +155,11 @@ void addSprite(GsIMAGE *texture, char **primaddr, VECTOR pos_) {
 		texture->pw, texture->ph
 	);
 	setClut(pol4, texture->cx, texture->cy);
-		if (depth < 100) {
-			setClut(pol4, texture->cx, texture->cy);
-		} else {
-			setClut(pol4, texture->cx, texture->cy+((depth-100)>>5));
-		}
+	if (depth < 100) {
+		setClut(pol4, texture->cx, texture->cy);
+	} else {
+		setClut(pol4, texture->cx, texture->cy+((depth-100)>>5));
+	}
 
 	addPrim(ot[db], pol4);
 

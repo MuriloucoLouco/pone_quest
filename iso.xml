@@ -30,6 +30,7 @@
 			<file name="PURPLE.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/purple.tim" />
 			<file name="CHAO.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/chao.tim" />
 			<file name="FUR.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/fur.tim" />
+			<file name="APPLE.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/apple.tim" />
 			<file name="CLOUD.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/cloud.tim" />
 
 			<file name="CUBE.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/cube.mdl" />
@@ -37,6 +38,7 @@
 			<file name="TORUS.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/torus.mdl" />
 			<file name="TWILY.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/twilight.mdl" />
 			<file name="GROUND.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/ground.mdl" />
+			<file name="APPLE.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/apple.mdl" />
 
 			<dummy sectors="1024"/>
 		</directory_tree>

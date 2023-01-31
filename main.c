@@ -101,10 +101,10 @@ int main() {
 
 	init();
 
-	GsIMAGE *fur_texture = file2texture("FUR.TIM");
+	GsIMAGE *apple_texture = file2texture("APPLE.TIM");
 	GsIMAGE *chao_texture = file2texture("CHAO.TIM");
 	GsIMAGE *cloud_texture = file2texture("CLOUD.TIM");
-	MODEL *monkey = file2model("MONKEY.MDL", fur_texture);
+	MODEL *apple = file2model("APPLE.MDL", apple_texture);
 	MODEL *ground = file2model("GROUND.MDL", chao_texture);
 
 	while (1) {
@@ -127,7 +127,7 @@ int main() {
 
 		ClearOTagR(ot[db], OTLEN);
 
-		addModel(monkey, &nextpri, player.pos, player.rot);
+		addModel(apple, &nextpri, player.pos, player.rot);
 		addModel(ground, &nextpri, (VECTOR){-100*ONE, GROUND*ONE+25*ONE, ground1}, (SVECTOR){0, 1024, 0, 0});
 		addModel(ground, &nextpri, (VECTOR){-100*ONE, GROUND*ONE+25*ONE, ground2}, (SVECTOR){0, 1024, 0, 0});
 		addModel(ground, &nextpri, (VECTOR){-100*ONE, GROUND*ONE+25*ONE, ground3}, (SVECTOR){0, 1024, 0, 0});
