@@ -11,7 +11,7 @@ typedef struct PLAYER {
 
 PLAYER player = {
   {0, -ONE * GROUND, 200 * ONE},
-  {0, 2048, 0, 0},
+  {0, 1024, 0, 0},
   1
 };
 
@@ -55,14 +55,14 @@ void move(PLAYER *pl) {
       pl->jumping = 1;
     }
   }
-  if (pl->S && !(pl->W || pl->E)) {rotate(pl, 0);    pl->pos.vz -= speed * ONE;}
-  if (pl->S && pl->W) 				    {rotate(pl, 512);  pl->pos.vz -= speed * 2896; pl->pos.vx -= speed * 2896;}
-  if (pl->W && !(pl->S || pl->N)) {rotate(pl, 1024); pl->pos.vx -= speed * ONE;}
-  if (pl->W && pl->N) 			      {rotate(pl, 1536); pl->pos.vz += speed * 2896; pl->pos.vx -= speed * 2896;}
-  if (pl->N && !(pl->W || pl->E)) {rotate(pl, 2048); pl->pos.vz += speed * ONE;}
-  if (pl->N && pl->E) 		  	  	{rotate(pl, 2560); pl->pos.vz += speed * 2896; pl->pos.vx += speed * 2896;}
-  if (pl->E && !(pl->N || pl->S)) {rotate(pl, 3072); pl->pos.vx += speed * ONE;}
-  if (pl->E && pl->S) 				    {rotate(pl, 3584); pl->pos.vz -= speed * 2896; pl->pos.vx += speed * 2896;}
+  if (pl->S && !(pl->W || pl->E)) {rotate(pl, 3072);    pl->pos.vz -= speed * ONE;}
+  if (pl->S && pl->W) 				    {rotate(pl, 3584);  pl->pos.vz -= speed * 2896; pl->pos.vx -= speed * 2896;}
+  if (pl->W && !(pl->S || pl->N)) {rotate(pl, 0); pl->pos.vx -= speed * ONE;}
+  if (pl->W && pl->N) 			      {rotate(pl, 512); pl->pos.vz += speed * 2896; pl->pos.vx -= speed * 2896;}
+  if (pl->N && !(pl->W || pl->E)) {rotate(pl, 1024); pl->pos.vz += speed * ONE;}
+  if (pl->N && pl->E) 		  	  	{rotate(pl, 1536); pl->pos.vz += speed * 2896; pl->pos.vx += speed * 2896;}
+  if (pl->E && !(pl->N || pl->S)) {rotate(pl, 2048); pl->pos.vx += speed * ONE;}
+  if (pl->E && pl->S) 				    {rotate(pl, 2560); pl->pos.vz -= speed * 2896; pl->pos.vx += speed * 2896;}
 
   if (pl->jumping) {
     pl->speedY += 512;

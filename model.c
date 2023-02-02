@@ -16,12 +16,9 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 	gte_SetTransMatrix(&mtx);
 	gte_SetLightMatrix(&lmtx);
 
-	POLY_FT4 *pol4;
-	POLY_FT3 *pol3;
-
 	for (i = 0; i < model->face_number; i++) {
 		if (model->indices->m == 1) { //quad
-			pol4 = (POLY_FT4*)*primaddr;
+			POLY_FT4 *pol4 = (POLY_FT4*)*primaddr;
 
 			gte_ldv3(
 				&model->verts[model->indices[i].v0],
@@ -47,29 +44,32 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 			gte_rtps();
 			gte_stsxy(&pol4->x3);
 
-			pol4->tpage = getTPage((int)model->texture->pmode&0x3, 0, model->texture->px, model->texture->py);
-			setUV4(pol4, model->indices[i].t0x, model->indices[i].t0y,
-        model->indices[i].t1x, model->indices[i].t1y,
-        model->indices[i].t2x, model->indices[i].t2y,
-        model->indices[i].t3x, model->indices[i].t3y
-      );
-			if (depth < 100) {
-				setClut(pol4, model->texture->cx, model->texture->cy);
-			} else if (((depth-100)>>5) < 8) {
-				setClut(pol4, model->texture->cx, model->texture->cy+((depth-100)>>5));
-			} else {
-				setClut(pol4, model->texture->cx, model->texture->cy+8);
-			}
-
 			gte_ldrgb(&pol4->r0);
 			gte_ldv0(&model->normals[model->vert_number + i]);
 			gte_ncs();
 			gte_strgb(&pol4->r0);
 
-			addPrim(ot[db], pol4);
+			pol4->tpage = getTPage((int)model->texture->pmode&0x3, 0, model->texture->px, model->texture->py);
+			setUV4(pol4,
+				model->indices[i].t0x, model->indices[i].t0y,
+				model->indices[i].t1x, model->indices[i].t1y,
+				model->indices[i].t2x, model->indices[i].t2y,
+        model->indices[i].t3x, model->indices[i].t3y
+      );
+			if (model->texture->pmode & 0x8) {
+				if (depth < 100) {
+					setClut(pol4, model->texture->cx, model->texture->cy);
+				} else if (((depth-100)>>5) < 8) {
+					setClut(pol4, model->texture->cx, model->texture->cy+((depth-100)>>5));
+				} else {
+					setClut(pol4, model->texture->cx, model->texture->cy+8);
+				}
+			}
+
+			addPrim(ot[db]+(depth>>2), pol4);
 			*primaddr = *primaddr + sizeof(POLY_FT4);
 		} else { //tri
-			pol3 = (POLY_FT3*)*primaddr;
+			POLY_FT3 *pol3 = (POLY_FT3*)*primaddr;
 
 			gte_ldv3(
 				&model->verts[model->indices[i].v0],
@@ -92,14 +92,17 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 			gte_stsxy2(&pol3->x2);
 
 			pol3->tpage = getTPage((int)model->texture->pmode&0x3, 0, model->texture->px, model->texture->py);
-			setUV3(pol4, model->indices[i].t0x, model->indices[i].t0y,
+			setUV3(pol3, 
+				model->indices[i].t0x, model->indices[i].t0y,
         model->indices[i].t1x, model->indices[i].t1y,
         model->indices[i].t2x, model->indices[i].t2y
       );
-			if (depth < 100) {
-				setClut(pol3, model->texture->cx, model->texture->cy);
-			} else {
-				setClut(pol3, model->texture->cx, model->texture->cy+((depth-100)>>5));
+			if (model->texture->pmode & 0x8) {
+				if (depth < 100) {
+					setClut(pol3, model->texture->cx, model->texture->cy);
+				} else {
+					setClut(pol3, model->texture->cx, model->texture->cy+((depth-100)>>5));
+				}
 			}
 
 			gte_ldrgb(&pol3->r0);
@@ -107,7 +110,7 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 			gte_ncs();
 			gte_strgb(&pol3->r0);
 
-			addPrim(ot[db], pol3);
+			addPrim(ot[db]+(depth>>2), pol3);
 			*primaddr = *primaddr + sizeof(POLY_FT3);
 		}
 	}
@@ -154,14 +157,16 @@ void addSprite(GsIMAGE *texture, char **primaddr, VECTOR pos_) {
 		0, texture->ph,
 		texture->pw, texture->ph
 	);
-	setClut(pol4, texture->cx, texture->cy);
-	if (depth < 100) {
+	if (texture->pmode & 0x8) {
 		setClut(pol4, texture->cx, texture->cy);
-	} else {
-		setClut(pol4, texture->cx, texture->cy+((depth-100)>>5));
+		if (depth < 100) {
+			setClut(pol4, texture->cx, texture->cy);
+		} else {
+			setClut(pol4, texture->cx, texture->cy+((depth-100)>>5));
+		}
 	}
 
-	addPrim(ot[db], pol4);
+	addPrim(ot[db]+(depth>>2), pol4);
 
 	*primaddr = *primaddr + sizeof(POLY_FT4);
 }

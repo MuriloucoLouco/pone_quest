@@ -27,7 +27,7 @@
 			<file name="PONE.MAP"	type="data" source="pone_quest.map" />
 
 			<file name="BOX.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/box.tim" />
-			<file name="PURPLE.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/purple.tim" />
+			<file name="TWILY.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/twily.tim" />
 			<file name="CHAO.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/chao.tim" />
 			<file name="FUR.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/fur.tim" />
 			<file name="APPLE.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/apple.tim" />

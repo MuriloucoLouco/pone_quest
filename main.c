@@ -26,6 +26,8 @@ MATRIX light_mtx = {
 u_char padbuff[2][34];
 PADTYPE *pad;
 
+MODEL elements[90];
+
 void init() {
 	ResetGraph(0);
 
@@ -101,11 +103,16 @@ int main() {
 
 	init();
 
-	GsIMAGE *apple_texture = file2texture("APPLE.TIM");
-	GsIMAGE *chao_texture = file2texture("CHAO.TIM");
 	GsIMAGE *cloud_texture = file2texture("CLOUD.TIM");
-	MODEL *apple = file2model("APPLE.MDL", apple_texture);
+
+	GsIMAGE *twily_texture = file2texture("TWILY.TIM");
+	MODEL *twilight = file2model("TWILY.MDL", twily_texture);
+
+	GsIMAGE *chao_texture = file2texture("CHAO.TIM");
 	MODEL *ground = file2model("GROUND.MDL", chao_texture);
+
+	GsIMAGE *apple_texture = file2texture("APPLE.TIM");
+	MODEL *apple = file2model("APPLE.MDL", apple_texture);
 
 	while (1) {
 		ground1 -= 3*ONE;
@@ -127,7 +134,7 @@ int main() {
 
 		ClearOTagR(ot[db], OTLEN);
 
-		addModel(apple, &nextpri, player.pos, player.rot);
+		addModel(twilight, &nextpri, player.pos, player.rot);
 		addModel(ground, &nextpri, (VECTOR){-100*ONE, GROUND*ONE+25*ONE, ground1}, (SVECTOR){0, 1024, 0, 0});
 		addModel(ground, &nextpri, (VECTOR){-100*ONE, GROUND*ONE+25*ONE, ground2}, (SVECTOR){0, 1024, 0, 0});
 		addModel(ground, &nextpri, (VECTOR){-100*ONE, GROUND*ONE+25*ONE, ground3}, (SVECTOR){0, 1024, 0, 0});
@@ -136,7 +143,7 @@ int main() {
 		addSprite(cloud_texture, &nextpri, (VECTOR){400*ONE, -3*GROUND*ONE, cloud3});
 		addSprite(cloud_texture, &nextpri, (VECTOR){-300*ONE, -4*GROUND*ONE, cloud4});
 
-		FntPrint(-1, "%d %d %d %d", cloud1, cloud2, cloud3, cloud4);
+		FntPrint(-1, "%d %d %d", player.pos.vx>>12, player.pos.vy>>12, player.pos.vz>>12);
 		FntFlush(-1);
 
 		display();

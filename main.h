@@ -3,7 +3,7 @@
 #define CENTERX				SCREEN_XRES >> 1
 #define CENTERY				SCREEN_YRES >> 1
 
-#define OTLEN 2048
+#define OTLEN 4096
 #define GROUND 50
 
 int GsGetTimInfo(const uint32_t *tim, GsIMAGE *info);
