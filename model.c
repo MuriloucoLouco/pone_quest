@@ -1,5 +1,23 @@
 #include "global.h"
-#include "main.h"
+#include "system.h"
+#include "model.h"
+#include "texture.h"
+
+MATRIX light_mtx = {
+	-1024, -1024, -1024,
+	0	   , 0	  , 0,
+	0	   , 0	  , 0
+};
+
+MODELS models;
+
+void initModels() {
+	models.apple = file2model("APPLE.MDL", textures.apple);
+	models.ground = file2model("GROUND.MDL", textures.ground);
+	models.pony = file2model("TWILY.MDL", textures.pony);
+	models.monkey = file2model("MONKEY.MDL", textures.pony);
+	models.cube = file2model("CUBE.MDL", textures.apple);
+}
 
 void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 	int i, depth;
@@ -16,9 +34,14 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 	gte_SetTransMatrix(&mtx);
 	gte_SetLightMatrix(&lmtx);
 
+	POLY_FT4 *pol4;
+	POLY_FT3 *pol3;
+
+	u_short tpage = getTPage((int)model->texture->pmode&0x3, 0, model->texture->px, model->texture->py);
+
 	for (i = 0; i < model->face_number; i++) {
 		if (model->indices->m == 1) { //quad
-			POLY_FT4 *pol4 = (POLY_FT4*)*primaddr;
+			pol4 = (POLY_FT4*)*primaddr;
 
 			gte_ldv3(
 				&model->verts[model->indices[i].v0],
@@ -49,7 +72,7 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 			gte_ncs();
 			gte_strgb(&pol4->r0);
 
-			pol4->tpage = getTPage((int)model->texture->pmode&0x3, 0, model->texture->px, model->texture->py);
+			pol4->tpage = tpage;
 			setUV4(pol4,
 				model->indices[i].t0x, model->indices[i].t0y,
 				model->indices[i].t1x, model->indices[i].t1y,
@@ -67,9 +90,9 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 			}
 
 			addPrim(ot[db]+(depth>>2), pol4);
-			*primaddr = *primaddr + sizeof(POLY_FT4);
+			*primaddr += sizeof(POLY_FT4);
 		} else { //tri
-			POLY_FT3 *pol3 = (POLY_FT3*)*primaddr;
+			pol3 = (POLY_FT3*)*primaddr;
 
 			gte_ldv3(
 				&model->verts[model->indices[i].v0],
@@ -91,7 +114,7 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 			gte_stsxy1(&pol3->x1);
 			gte_stsxy2(&pol3->x2);
 
-			pol3->tpage = getTPage((int)model->texture->pmode&0x3, 0, model->texture->px, model->texture->py);
+			pol3->tpage = tpage;
 			setUV3(pol3, 
 				model->indices[i].t0x, model->indices[i].t0y,
         model->indices[i].t1x, model->indices[i].t1y,
@@ -100,8 +123,10 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 			if (model->texture->pmode & 0x8) {
 				if (depth < 100) {
 					setClut(pol3, model->texture->cx, model->texture->cy);
-				} else {
+				} else if (((depth-100)>>5) < 8) {
 					setClut(pol3, model->texture->cx, model->texture->cy+((depth-100)>>5));
+				} else {
+					setClut(pol3, model->texture->cx, model->texture->cy+8);
 				}
 			}
 
@@ -111,7 +136,7 @@ void addModel(MODEL *model, char **primaddr, VECTOR pos_, SVECTOR rot_) {
 			gte_strgb(&pol3->r0);
 
 			addPrim(ot[db]+(depth>>2), pol3);
-			*primaddr = *primaddr + sizeof(POLY_FT3);
+			*primaddr += sizeof(POLY_FT3);
 		}
 	}
 }

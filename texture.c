@@ -1,4 +1,14 @@
 #include "global.h"
+#include "texture.h"
+
+TEXTURES textures;
+
+void initTextures() {
+	textures.apple = file2texture("APPLE.TIM");
+	textures.pony = file2texture("TWILY.TIM");
+	textures.cloud = file2texture("CLOUD.TIM");
+	textures.ground = file2texture("CHAO.TIM");
+}
 
 void DpqColor(CVECTOR *orgc, int depth, CVECTOR *newc) {
   gte_lddp(depth);
@@ -45,6 +55,7 @@ void sce_make_fog_clut(RECT *crect, u_short *clut, int num) {
 
 void LoadTexture(u_int *tim, GsIMAGE *tparam) {
 	GsGetTimInfo(tim, tparam);
+	printf("PRECT: %d %d %d %d\n", tparam->px, tparam->py, tparam->pw, tparam->ph);
 
 	RECT prect = {tparam->px, tparam->py, tparam->pw, tparam->ph};
 	RECT crect = {tparam->cx, tparam->cy, tparam->cw, tparam->ch};

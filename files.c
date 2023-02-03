@@ -1,4 +1,5 @@
 #include "global.h"
+#include "model.h"
 
 char *loadfile(const char *filename) {
   CdlFILE filePos;
@@ -119,7 +120,7 @@ MODEL *file2model(const char *filename, GsIMAGE *model_texture) {
   return model;
 }
 
-TIM_IMAGE *file2texture(const char *filename) {
+GsIMAGE *file2texture(const char *filename) {
   u_int *tim_data = loadfile(filename);
   GsIMAGE *texture = malloc(sizeof(GsIMAGE));
   LoadTexture(tim_data, texture);

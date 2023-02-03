@@ -1,16 +1,9 @@
 #include "global.h"
-#include "main.h"
-
-typedef struct PLAYER {
-  VECTOR  pos;
-  SVECTOR rot;
-  int     jumping;
-  int     N, S, E, W;
-  int     speedY;
-} PLAYER;
+#include "system.h"
+#include "player.h"
 
 PLAYER player = {
-  {0, -ONE * GROUND, 200 * ONE},
+  {0, -ONE * GROUND, 150 * ONE},
   {0, 1024, 0, 0},
   1
 };
@@ -76,7 +69,7 @@ void move(PLAYER *pl) {
     pl->speedY = 0;
     pl->jumping = 0;
   }
-  if (pl->pos.vx < -100 * ONE) pl->pos.vx = -100 * ONE;
-  if (pl->pos.vx > 100 * ONE) pl->pos.vx = 100 * ONE;
-  if (pl->pos.vz < 100 * ONE) pl->pos.vz = 100 * ONE;
+  if (pl->pos.vx < -75 * ONE) pl->pos.vx = -75 * ONE;
+  if (pl->pos.vx > 75 * ONE) pl->pos.vx = 75 * ONE;
+  if (pl->pos.vz < 75 * ONE) pl->pos.vz = 75 * ONE;
 }

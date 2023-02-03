@@ -1,6 +1,11 @@
-extern struct PLAYER {
-  VECTOR pos;
-  VECTOR rot;
-};
+#define GROUND 50
 
-extern struct PLAYER player;
+typedef struct PLAYER {
+  VECTOR  pos;
+  SVECTOR rot;
+  int     jumping;
+  int     N, S, E, W;
+  int     speedY;
+} PLAYER;
+
+extern PLAYER player;

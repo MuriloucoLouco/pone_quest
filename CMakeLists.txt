@@ -13,7 +13,7 @@ project(
 	HOMEPAGE_URL "https://muriloucolouco.github.io/"
 )
 
-psn00bsdk_add_executable(pone_quest STATIC main.c texture.c model.c model_reader.c player.c)
+psn00bsdk_add_executable(pone_quest STATIC main.c system.c texture.c model.c files.c player.c level.c)
 
 psn00bsdk_add_cd_image(
 	pone_quest_iso

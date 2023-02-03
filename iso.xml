@@ -36,7 +36,7 @@
 			<file name="CUBE.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/cube.mdl" />
 			<file name="MONKEY.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/monkey.mdl" />
 			<file name="TORUS.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/torus.mdl" />
-			<file name="TWILY.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/twilight.mdl" />
+			<file name="TWILY.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/twily.mdl" />
 			<file name="GROUND.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/ground.mdl" />
 			<file name="APPLE.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/apple.mdl" />
 
