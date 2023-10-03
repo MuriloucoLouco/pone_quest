@@ -1,5 +1,7 @@
 #include "global.h"
 #include "model.h"
+#include "texture.h"
+#include "files.h"
 
 char *loadfile(const char *filename) {
   CdlFILE filePos;

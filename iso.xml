@@ -29,9 +29,10 @@
 			<file name="BOX.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/box.tim" />
 			<file name="TWILY.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/twily.tim" />
 			<file name="CHAO.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/chao.tim" />
-			<file name="FUR.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/fur.tim" />
+			<file name="SHADOW.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/shadow.tim" />
 			<file name="APPLE.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/apple.tim" />
 			<file name="CLOUD.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/cloud.tim" />
+			<file name="CASA1.TIM"	type="data" source="${PROJECT_SOURCE_DIR}/textures/casa1.tim" />
 
 			<file name="CUBE.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/cube.mdl" />
 			<file name="MONKEY.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/monkey.mdl" />
@@ -39,6 +40,8 @@
 			<file name="TWILY.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/twily.mdl" />
 			<file name="GROUND.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/ground.mdl" />
 			<file name="APPLE.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/apple.mdl" />
+			<file name="SHADOW.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/shadow.mdl" />
+			<file name="casa1.MDL"	type="data" source="${PROJECT_SOURCE_DIR}/models/casa1.mdl" />
 
 			<dummy sectors="1024"/>
 		</directory_tree>

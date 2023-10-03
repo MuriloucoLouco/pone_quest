@@ -24,38 +24,35 @@ void rotate(PLAYER *pl, int angle) {
 
 void move(PLAYER *pl) {
   pad = (PADTYPE*)padbuff[0];
-
-  pl->N = 0; pl->S = 0; pl->E = 0; pl->W = 0;
+  int MOV = 0;
   if (pad->stat == 0 && (pad->type == 0x4 || pad->type == 0x5 || pad->type == 0x7)) {
-    if (!(pad->btn & PAD_UP)) {
-      pl->N = 1;
-      pl->S = 0;
+    int UP = !(pad->btn & PAD_UP);
+    int DOWN = !(pad->btn & PAD_DOWN);
+    int RIGHT = !(pad->btn & PAD_RIGHT);
+    int LEFT = !(pad->btn & PAD_LEFT);
+    MOV = (UP || DOWN || RIGHT || LEFT);
+
+    if (MOV) {
+      pl->N = 0; pl->S = 0; pl->E = 0; pl->W = 0;
+      if (UP) {pl->N = 1;}
+      if (DOWN) {pl->S = 1;}
+      if (RIGHT) {pl->E = 1;}
+      if (LEFT) {pl->W = 1;}
     }
-    if (!(pad->btn & PAD_DOWN)) {
-      pl->S = 1;
-      pl->N = 0;
-    }
-    if (!(pad->btn & PAD_RIGHT)) {
-      pl->E = 1;
-      pl->W = 0;
-    }
-    if (!(pad->btn & PAD_LEFT)) {
-      pl->W = 1;
-      pl->E = 0;
-    }
+
     if (!(pad->btn & PAD_CROSS) && !pl->jumping) {
       pl->speedY = -3 * ONE;
       pl->jumping = 1;
     }
   }
-  if (pl->S && !(pl->W || pl->E)) {rotate(pl, 3072);    pl->pos.vz -= speed * ONE;}
-  if (pl->S && pl->W) 				    {rotate(pl, 3584);  pl->pos.vz -= speed * 2896; pl->pos.vx -= speed * 2896;}
-  if (pl->W && !(pl->S || pl->N)) {rotate(pl, 0); pl->pos.vx -= speed * ONE;}
-  if (pl->W && pl->N) 			      {rotate(pl, 512); pl->pos.vz += speed * 2896; pl->pos.vx -= speed * 2896;}
-  if (pl->N && !(pl->W || pl->E)) {rotate(pl, 1024); pl->pos.vz += speed * ONE;}
-  if (pl->N && pl->E) 		  	  	{rotate(pl, 1536); pl->pos.vz += speed * 2896; pl->pos.vx += speed * 2896;}
-  if (pl->E && !(pl->N || pl->S)) {rotate(pl, 2048); pl->pos.vx += speed * ONE;}
-  if (pl->E && pl->S) 				    {rotate(pl, 2560); pl->pos.vz -= speed * 2896; pl->pos.vx += speed * 2896;}
+  if (pl->S && !(pl->W || pl->E)) {rotate(pl, 3072); if(MOV) {pl->pos.vz -= speed * ONE;}}
+  if (pl->S && pl->W) 				    {rotate(pl, 3584); if(MOV) {pl->pos.vz -= speed * 2896; pl->pos.vx -= speed * 2896;}}
+  if (pl->W && !(pl->S || pl->N)) {rotate(pl, 0);    if(MOV) {pl->pos.vx -= speed * ONE;}}
+  if (pl->W && pl->N) 			      {rotate(pl, 512);  if(MOV) {pl->pos.vz += speed * 2896; pl->pos.vx -= speed * 2896;}}
+  if (pl->N && !(pl->W || pl->E)) {rotate(pl, 1024); if(MOV) {pl->pos.vz += speed * ONE;}}
+  if (pl->N && pl->E) 		  	  	{rotate(pl, 1536); if(MOV) {pl->pos.vz += speed * 2896; pl->pos.vx += speed * 2896;}}
+  if (pl->E && !(pl->N || pl->S)) {rotate(pl, 2048); if(MOV) {pl->pos.vx += speed * ONE;}}
+  if (pl->E && pl->S) 				    {rotate(pl, 2560); if(MOV) {pl->pos.vz -= speed * 2896; pl->pos.vx += speed * 2896;}}
 
   if (pl->jumping) {
     pl->speedY += 512;

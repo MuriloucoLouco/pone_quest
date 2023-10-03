@@ -11,3 +11,6 @@ extern char *nextpri;
 
 extern u_char padbuff[2][34];
 extern PADTYPE *pad;
+
+void init();
+void display();

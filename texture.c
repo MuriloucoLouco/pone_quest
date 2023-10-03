@@ -1,5 +1,7 @@
 #include "global.h"
+#include "model.h"
 #include "texture.h"
+#include "files.h"
 
 TEXTURES textures;
 
@@ -8,6 +10,8 @@ void initTextures() {
 	textures.pony = file2texture("TWILY.TIM");
 	textures.cloud = file2texture("CLOUD.TIM");
 	textures.ground = file2texture("CHAO.TIM");
+	textures.shadow = file2texture("SHADOW.TIM");
+	textures.casa1 = file2texture("CASA1.TIM");
 }
 
 void DpqColor(CVECTOR *orgc, int depth, CVECTOR *newc) {

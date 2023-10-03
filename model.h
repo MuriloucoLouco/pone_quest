@@ -16,8 +16,9 @@ typedef struct MODELS {
   MODEL *apple;
   MODEL *pony;
   MODEL *ground;
-  MODEL *monkey;
+  MODEL *shadow;
   MODEL *cube;
+  MODEL *casa1;
 } MODELS;
 
 extern MODELS models;

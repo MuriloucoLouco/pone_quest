@@ -63,7 +63,6 @@ void init() {
 
 	initTextures();
 	initModels();
-	initObjects();
 	initMap();
 }
 

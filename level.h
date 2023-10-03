@@ -1,5 +1,3 @@
-#include "model.h"
-
 #define OBJ_LIST_LEN 30
 
 typedef struct OBJECT {
